@@ -43,25 +43,25 @@ calcDiv  list = if findDiv list == True
 				    then if head (tail list) == "/"
 				    	 then calcDiv ((show $ rInt (head list) / rInt (head $ tail $ tail list)) : (tail $ tail $ tail list))
 				    	 else (head list) : (head (tail list)) : (calcDiv (tail (tail list)))
-				 	else list
+				    else list
 
 calcMul  list = if findMul list == True
 				    then if head (tail list) == "*"
 				    	 then calcMul ((show $ rInt (head list) * rInt (head $ tail $ tail list)) : (tail $ tail $ tail list))
 				    	 else (head list) : (head (tail list)) : (calcMul (tail (tail list)))
-				 	else list
+				    else list
 
 calcPlus list = if findPlus list == True
 				    then if head (tail list) == "+"
 				    	 then calcPlus ((show $ rInt (head list) + rInt (head $ tail $ tail list)) : (tail $ tail $ tail list))
 				    	 else (head list) : (head (tail list)) : (calcPlus (tail (tail list)))
-				 	else list
+				    else list
 
 calcSub  list = if findSub list == True
 				    then if head (tail list) == "-"
 				    	 then calcSub ((show $ rInt (head list) - rInt (head $ tail $ tail list)) : (tail $ tail $ tail list))
 				    	 else (head list) : (head (tail list)) : (calcSub (tail (tail list)))
-				 	else list
+				    else list
 
 
 calculate :: [String] -> [String]
@@ -88,30 +88,30 @@ finalList :: [String] -> [String]
 finalList [] = []
 
 finalList[a, b] = if a /= "+" &&
-					 a /= "-" &&
-					 a /= "/" &&
-				     a /= "*" &&
-				     a /= ")" && 
-					 a /= "(" && 
-					 b /= "+" &&
-					 b /= "-" &&
-					 b /= "/" && 
-					 b /= "*" &&
-					 b /= ")" && 
-					 b /= "("   then [a++b] else [a, b]  
+		     a /= "-" &&
+		     a /= "/" &&
+		     a /= "*" &&
+		     a /= ")" && 
+		     a /= "(" && 
+		     b /= "+" &&
+		     b /= "-" &&
+		     b /= "/" && 
+		     b /= "*" &&
+		     b /= ")" && 
+		     b /= "("   then [a++b] else [a, b]  
 
 finalList (x1:x2:xs) = if x1 /= "+" &&
-						  x1 /= "-" &&
-						  x1 /= "/" &&
-						  x1 /= "*" &&
-						  x1 /= ")" && 
-					 	  x1 /= "(" && 
-						  x2 /= "+" &&
-						  x2 /= "-" &&
-						  x2 /= "/" && 
-						  x2 /= "*" &&
-						  x2 /= ")" && 
-					 	  x2 /= "("   then finalList ((x1 ++ x2) : xs) else (x1 : finalList (x2 : xs)) 
+			  x1 /= "-" &&
+			  x1 /= "/" &&
+			  x1 /= "*" &&
+			  x1 /= ")" && 
+			  x1 /= "(" && 
+			  x2 /= "+" &&
+			  x2 /= "-" &&
+			  x2 /= "/" && 
+			  x2 /= "*" &&
+			  x2 /= ")" && 
+			  x2 /= "("   then finalList ((x1 ++ x2) : xs) else (x1 : finalList (x2 : xs)) 
 
 
 countBr :: [String] -> Int -> [Int] -> [Int]
@@ -119,8 +119,8 @@ countBr :: [String] -> Int -> [Int] -> [Int]
 countBr [] num list_br = list_br
 
 countBr (x:xs) num list_br | x == "(" = countBr xs (num + 1) (num : list_br)
-						   | x == ")" = countBr xs (num + 1) ((-num) : list_br)
-						   | otherwise = countBr xs (num + 1) list_br
+			   | x == ")" = countBr xs (num + 1) ((-num) : list_br)
+			   | otherwise = countBr xs (num + 1) list_br
 
 
 startList :: String -> [String]
@@ -155,10 +155,10 @@ union list1 list2 = union (init list1) (last list1 : list2)
 calc :: [String] -> [Int] -> Int -> [String]
 
 calc list brlist n = if n >=0 then if (brlist !! n) >= 0 && (brlist !! (n + 1)) <= 0 
-					 			   then calc newlist (brInfo newlist) (n - 1)
-					          	   else calc list brlist (n + 1)
-					 		  else list
-					 			   where newlist = union (union (take (brlist !! n) list) (calculate (slice ((brlist !! n) + 1) ((abs (brlist !! (n+1))) - 1) list))) (drop (abs (brlist !! (n+1)) + 1) list) 
+				   then calc newlist (brInfo newlist) (n - 1)
+				   else calc list brlist (n + 1)
+			      else list
+				   where newlist = union (union (take (brlist !! n) list) (calculate (slice ((brlist !! n) + 1) ((abs (brlist !! (n+1))) - 1) list))) (drop (abs (brlist !! (n+1)) + 1) list) 
 
 
 calcul :: [String] -> [String]
